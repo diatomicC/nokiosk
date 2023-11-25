@@ -1,0 +1,9 @@
+[[redirects]]
+  from = "/vn_hn_vinuni/1_s1/ord"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/vn_hn_vinuni/1_s1/pay"
+  to = "/pay.html"
+  status = 200

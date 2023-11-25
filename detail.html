@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상세 페이지</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        #back-button {
+    position: absolute; /* 절대 위치 설정 */
+    top: 10px;          /* 상단에서 10px 떨어진 위치 */
+    left: 10px;         /* 좌측에서 10px 떨어진 위치 */
+    padding: 10px;      /* 버튼 내부 패딩 */
+    background-color: orangered; /* 배경색 */
+    color:white;
+    border: none;       /* 테두리 없음 */
+    border-radius: 5px; /* 둥근 모서리 */
+    cursor: pointer;    /* 마우스 오버시 커서 변경 */
+}
+
+#menu-detail h1 {
+    text-align: center;
+    font-size: 24px;
+    margin: 16px 0;
+}
+
+#menu-detail p {
+    text-align: center;
+    color: #333;
+    margin-bottom: 16px;
+}
+
+/* 돌아가기 버튼 호버 효과 */
+#back-button:hover {
+    background-color: #ddd; /* 마우스 오버시 배경색 변경 */
+}
+
+.quantity-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quantity-selector div {
+    width: 30px; /* 버튼의 너비 */
+    height: 30px; /* 버튼의 높이 */
+    line-height: 30px; /* 세로 정렬을 위해 line-height를 버튼 높이와 동일하게 설정 */
+    text-align: center;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* '-' 버튼 스타일 */
+.quantity-selector div:first-child {
+    background-color: #ccc;
+    border: 1px solid #bbb;
+    border-radius: 15px; /* 원형 모양 */
+}
+
+/* '-' 버튼 호버 효과 */
+.quantity-selector div:first-child:hover {
+    background-color: #bbb;
+}
+
+/* '+' 버튼 스타일 */
+.quantity-selector div:last-child {
+    background-color: orangered;
+    color: white;
+    border-radius: 15px; /* 원형 모양 */
+}
+
+/* '+' 버튼 호버 효과 */
+.quantity-selector div:last-child:hover {
+    background-color: #e65c00;
+}
+
+/* 입력 필드 스타일 */
+.quantity-selector input {
+    width: 40px; /* 입력 필드의 너비 */
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none; /* 입력 필드 선택 시 테두리 제거 */
+}
+
+/* 입력 필드에 포커스 있을 때 */
+.quantity-selector input:focus {
+    border-color: #ccc;
+}
+    </style>
+</head>
+<body>
+    <div id="back-button" onclick="goBack()">Back</div>
+    <div id="menu-detail">
+        <!-- 상세 메뉴 정보가 표시됩니다 -->
+    </div>
+
+    <div class="quantity-selector">
+        <div onclick="decrementQuantity()">-</div>
+        <input type="text" id="quantity" value="1" readonly>
+        <div onclick="incrementQuantity()">+</div>
+    </div>
+    <button onclick="putMenu()">Order</button>
+    
+    <script>
+        // 수량 감소 함수
+function decrementQuantity() {
+    var quantityInput = document.getElementById('quantity');
+    var currentQuantity = parseInt(quantityInput.value, 10);
+    currentQuantity = currentQuantity > 1 ? currentQuantity - 1 : 1;
+    quantityInput.value = currentQuantity;
+    localStorage.setItem('selectedQuantity', currentQuantity); // Update localStorage
+}
+
+// 수량 증가 함수
+function incrementQuantity() {
+    var quantityInput = document.getElementById('quantity');
+    var currentQuantity = parseInt(quantityInput.value, 10);
+    quantityInput.value = currentQuantity + 1;
+    localStorage.setItem('selectedQuantity', currentQuantity + 1); // Update localStorage
+}
+
+function putMenu() {
+    const quantity = parseInt(localStorage.getItem('selectedQuantity') || '1');
+    const price = parseInt(localStorage.getItem('selectedMenuPrice'));
+    const totalAmount = quantity * price;
+
+    // 기존 총액에 새로운 금액 추가
+    const currentTotal = parseInt(localStorage.getItem('totalAmount') || '0');
+    const newTotal = currentTotal + totalAmount;
+    localStorage.setItem('totalAmount', newTotal);
+
+    window.location.href = 'index.html';
+}
+
+function goBack() {
+    window.location.href = 'index.html';
+}
+
+// 페이지 로드 시 상세 정보를 표시
+window.onload = () => {
+    const menuName = localStorage.getItem('selectedMenuName');
+    const menuPrice = localStorage.getItem('selectedMenuPrice');
+    const menuImage = localStorage.getItem('selectedMenuImage'); // 이미지 URL 불러오기
+
+    // 이미지와 함께 상세 정보 표시
+    document.getElementById('menu-detail').innerHTML = `
+        <img src="${menuImage}" alt="${menuName}" style="max-width: 100%; height: auto;">
+        <h1>${menuName}</h1>
+        <p>${menuPrice}VND</p>`;
+
+    // Load the saved quantity or default to 1
+    const savedQuantity = localStorage.getItem('selectedQuantity') || '1';
+    document.getElementById('quantity').value = savedQuantity;
+};
+    </script>
+    
+</body>
+</html>
