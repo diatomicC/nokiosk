@@ -4,8 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상세 페이지</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
+
+button {
+            width: 90%; /* This width should be the same as the #total to align them correctly */
+            padding: 15px 0;
+            font-size: 20px;
+            background-color: #ff9500;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 0; /* 버튼 모서리 둥글게 처리 */
+            position: fixed; /* 버튼을 하단에 고정 */
+            bottom: 10px; /* Adjust this to move the button up from the very bottom */
+            left: 50%; /* Same as the #total div */
+            transform: translateX(-50%); /* Same as the #total div */
+            box-sizing: border-box; /* To ensure padding is included in the width */
+          }  
+        
+          button:hover {
+            background-color: #e68a00; /* 호버 시 색상 변화 */
+          }
         #back-button {
     position: absolute; /* 절대 위치 설정 */
     top: 10px;          /* 상단에서 10px 떨어진 위치 */
