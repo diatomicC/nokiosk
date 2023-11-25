@@ -7,7 +7,55 @@
     <style>
         
 
-
+        #header {
+            align-items: center; /* Vertically center the children within the header */
+            justify-content: space-between; /* This pushes the logo to the left and the store info to the right */
+          }
+          
+          #company-logo {
+            /* Remove the width: 40%; if you want the logo to be its natural size */
+            max-width: 100px; /* Set a max-width to ensure the logo doesn't get too large */
+            height: auto; /* Maintain the aspect ratio of the logo */
+            margin-left: 5%; /* Maintain the left margin */
+            margin-top: 5%; /* Maintain the top margin */
+          }
+        
+        
+          
+          #store-info {
+            display: flex;
+            text-align: right; /* Keep the text aligned to the right */
+        
+            margin-right: 5%; 
+            color: gray !important;
+            margin-bottom: 10%;
+          }
+        
+          #store_name{
+            left: 5%;
+            position:absolute !important;
+          }
+        
+          #table_no{
+            right: 10%;
+            position:absolute !important;
+          }
+          
+        
+        .container {
+            text-align: center;
+            margin: 20px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        
+        select {
+            font-size: 16px;
+        }
+        
 /* ----------------결 제 페 이 지----------------*/
 body {
     font-family: 'Arial', sans-serif;
